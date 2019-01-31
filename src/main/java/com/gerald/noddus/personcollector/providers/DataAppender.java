@@ -1,6 +1,8 @@
 package com.gerald.noddus.personcollector.providers;
 
+import java.io.IOException;
+
 public interface DataAppender {
 
-    void saveData(String data);
+    void saveData(byte[] data) throws IOException;
 }

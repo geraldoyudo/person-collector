@@ -6,6 +6,7 @@ import static org.hamcrest.Matchers.is;
 
 import java.io.File;
 import java.io.FileReader;
+import java.io.IOException;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -59,11 +60,11 @@ public class RollingFileDataAppenderTest {
         rollingFileDataAppender.closeFile();
 
         assertThat(FileCopyUtils.copyToString(new FileReader(testFile)),
-                is(equalTo(TEST_DATA_PLUS_LINE_SEPARATOR)));
+                is(equalTo(TEST_DATA)));
     }
 
-    private void saveToAppender() {
-        rollingFileDataAppender.saveData(TEST_DATA);
+    private void saveToAppender() throws IOException {
+        rollingFileDataAppender.saveData(TEST_DATA.getBytes());
     }
 
     @Test
@@ -74,7 +75,7 @@ public class RollingFileDataAppenderTest {
         rollingFileDataAppender.closeFile();
 
         assertThat(FileCopyUtils.copyToString(new FileReader(testFile)),
-                is(equalTo(TEST_DATA_PLUS_LINE_SEPARATOR + TEST_DATA_PLUS_LINE_SEPARATOR)));
+                is(equalTo(TEST_DATA + TEST_DATA)));
     }
 
     @Test
@@ -87,7 +88,7 @@ public class RollingFileDataAppenderTest {
         rollingFileDataAppender.closeFile();
 
         assertThat(FileCopyUtils.copyToString(new FileReader(testFile)),
-                is(equalTo(TEST_DATA_PLUS_LINE_SEPARATOR + TEST_DATA_PLUS_LINE_SEPARATOR)));
+                is(equalTo(TEST_DATA + TEST_DATA)));
     }
 
     @Test
@@ -101,7 +102,7 @@ public class RollingFileDataAppenderTest {
         File rolledOverFile = new File(testFolder, "data-sample-1.txt");
         assertThat(rolledOverFile.isFile(), is(true));
         assertThat(FileCopyUtils.copyToString(new FileReader(rolledOverFile)),
-                equalTo(TEST_DATA_PLUS_LINE_SEPARATOR));
+                equalTo(TEST_DATA));
     }
 
     private RolloverLabel createRolloverLabel() {
@@ -121,11 +122,11 @@ public class RollingFileDataAppenderTest {
         rollingFileDataAppender.closeFile();
 
         assertThat(FileCopyUtils.copyToString(new FileReader(testFile)),
-                is(equalTo(CUSTOM_DATA + System.lineSeparator())));
+                is(equalTo(CUSTOM_DATA)));
     }
 
-    private void saveToAppender(String data) {
-        rollingFileDataAppender.saveData(data);
+    private void saveToAppender(String data) throws IOException{
+        rollingFileDataAppender.saveData(data.getBytes());
     }
 
     @Test

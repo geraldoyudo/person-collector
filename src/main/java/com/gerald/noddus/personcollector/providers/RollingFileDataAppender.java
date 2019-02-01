@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
 @Component
-public class RollingFileDataAppender implements DataAppender {
+public class RollingFileDataAppender implements DataAppender, RolloverCapable {
 
     @Value("${person.service.folder}")
     private String folderPath;
@@ -46,17 +46,22 @@ public class RollingFileDataAppender implements DataAppender {
         outputStream.write(data);
     }
 
-    public synchronized void rollOver(RolloverLabel rolloverLabel) throws FileNotFoundException, IOException {
-        closeFile();
-        String nameWithoutExtension = FilenameUtils.removeExtension(fileName);
-        String extension = FilenameUtils.getExtension(fileName);
-        String labelledName = rolloverLabel.prefix() + nameWithoutExtension + rolloverLabel.suffix();
-        if (!StringUtils.isEmpty(extension)) {
-            labelledName = labelledName + "." + extension;
+    @Override
+    public synchronized void rollOver(RolloverLabel rolloverLabel) throws RolloverException {
+        try {
+            closeFile();
+            String nameWithoutExtension = FilenameUtils.removeExtension(fileName);
+            String extension = FilenameUtils.getExtension(fileName);
+            String labelledName = rolloverLabel.prefix() + nameWithoutExtension + rolloverLabel.suffix();
+            if (!StringUtils.isEmpty(extension)) {
+                labelledName = labelledName + "." + extension;
+            }
+            File file = new File(getAbsoluteFilePath());
+            file.renameTo(new File(folderPath + File.separator + labelledName));
+            openFile();
+        }catch (IOException ex){
+            throw new RolloverException("Could not rollover output file", ex);
         }
-        File file = new File(getAbsoluteFilePath());
-        file.renameTo(new File(folderPath + File.separator + labelledName));
-        openFile();
     }
 
     @PreDestroy

@@ -17,6 +17,6 @@ public class TimeRolloverLabelTest {
         LocalDateTime dateTime = LocalDateTime.parse("2019-01-31T14:23:46.085");
         TimeRolloverLabel rolloverLabel = new TimeRolloverLabel(dateTime);
         collector.checkThat(rolloverLabel.prefix(), equalTo(""));
-        collector.checkThat(rolloverLabel.suffix(), equalTo("2019-01-31T14_23_46_085"));
+        collector.checkThat(rolloverLabel.suffix(), equalTo("-2019-01-31T14_23_46_085"));
     }
 }

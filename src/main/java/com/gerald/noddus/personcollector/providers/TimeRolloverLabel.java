@@ -21,7 +21,7 @@ public class TimeRolloverLabel implements RolloverLabel {
 
     @Override
     public String suffix() {
-        return localDateTime.format(DateTimeFormatter.ISO_DATE_TIME)
+        return "-" + localDateTime.format(DateTimeFormatter.ISO_DATE_TIME)
                 .replace(".", "_")
                 .replace(":","_");
     }

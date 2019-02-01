@@ -7,14 +7,20 @@ import org.springframework.stereotype.Component;
 @Component
 public class RolloverManager {
     private RolloverCapable rolloverCapable;
+    private RolloverLabelGenerator rolloverLabelGenerator;
 
     @Autowired
     public void setRolloverCapable(RolloverCapable rolloverCapable) {
         this.rolloverCapable = rolloverCapable;
     }
 
+    @Autowired
+    public void setRolloverLabelGenerator(RolloverLabelGenerator rolloverLabelGenerator) {
+        this.rolloverLabelGenerator = rolloverLabelGenerator;
+    }
+
     @Scheduled(cron = "${person.service.rollover.cron}")
     public void rollOver(){
-        rolloverCapable.rollOver(new TimeRolloverLabel());
+        rolloverCapable.rollOver(rolloverLabelGenerator.generateRolloverLabel());
     }
 }

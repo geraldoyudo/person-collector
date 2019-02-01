@@ -1,9 +1,11 @@
 package com.gerald.noddus.personcollector.providers;
 
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -19,10 +21,18 @@ import org.springframework.test.context.junit4.SpringRunner;
 public class RolloverManagerTest {
     @MockBean
     private RolloverCapable rolloverCapable;
+    @MockBean
+    private RolloverLabelGenerator rolloverLabelGenerator;
+
+    @Before
+    public void setUp(){
+        doReturn(new CountRollover()).when(rolloverLabelGenerator).generateRolloverLabel();
+    }
 
     @Test
     public void rollOver() throws Exception {
         Thread.sleep(5000);
-        verify(rolloverCapable, times(5)).rollOver(any(TimeRolloverLabel.class));
+        verify(rolloverCapable, times(5)).rollOver(any(CountRollover.class));
     }
+
 }

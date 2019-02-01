@@ -5,12 +5,19 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import org.apache.commons.io.FilenameUtils;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
+@Component
 public class RollingFileDataAppender implements DataAppender {
 
+    @Value("${person.service.folder}")
     private String folderPath;
+    @Value("${person.service.file}")
     private String fileName;
     private OutputStream outputStream;
 
@@ -22,6 +29,7 @@ public class RollingFileDataAppender implements DataAppender {
         this.fileName = fileName;
     }
 
+    @PostConstruct
     public void openFile() throws FileNotFoundException {
         if (isOpen()) {
             throw new IllegalStateException("file is already open");
@@ -51,6 +59,7 @@ public class RollingFileDataAppender implements DataAppender {
         openFile();
     }
 
+    @PreDestroy
     public void closeFile() throws IOException {
         if (outputStream != null) {
             outputStream.close();

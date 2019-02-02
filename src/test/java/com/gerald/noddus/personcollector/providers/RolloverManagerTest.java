@@ -1,6 +1,7 @@
 package com.gerald.noddus.personcollector.providers;
 
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.atLeast;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -32,7 +33,7 @@ public class RolloverManagerTest {
     @Test
     public void rollOver() throws Exception {
         Thread.sleep(5000);
-        verify(rolloverCapable, times(5)).rollOver(any(CountRollover.class));
+        verify(rolloverCapable, atLeast(3)).rollOver(any(CountRollover.class));
     }
 
 }

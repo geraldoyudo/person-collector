@@ -6,7 +6,6 @@ import static org.hamcrest.CoreMatchers.equalTo;
 import com.gerald.noddus.entities.PersonEntity;
 import com.gerald.noddus.entities.PersonEntity.JSONmsg;
 import com.gerald.noddus.personcollector.models.Person;
-import com.google.protobuf.InvalidProtocolBufferException;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import org.junit.Rule;
@@ -14,13 +13,13 @@ import org.junit.Test;
 import org.junit.rules.ErrorCollector;
 
 public class ProtobufPersonSerializerTest {
-    private ProtobufPersonSerializer serializer = new ProtobufPersonSerializer();
+    private final ProtobufPersonSerializer serializer = new ProtobufPersonSerializer();
 
     @Rule
-    public ErrorCollector collector = new ErrorCollector();
+    public final ErrorCollector collector = new ErrorCollector();
 
     @Test
-    public void givenPersonShouldSerializeProperly() throws  Exception {
+    public void givenPersonShouldSerializeProperly() throws Exception {
         Person person = createPerson(100L, "Gerald");
         byte[] serializedPerson = serializer.serialize(person);
         Person readPerson = readPerson(serializedPerson);

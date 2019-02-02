@@ -18,7 +18,6 @@ public class RollingFileDataAppenderTest {
 
     public static final String SAMPLE_FILE_NAME = "sample.txt";
     public static final String TEST_DATA = "test-data";
-    public static final String TEST_DATA_PLUS_LINE_SEPARATOR = TEST_DATA + System.lineSeparator();
     public static final String CUSTOM_DATA = "custom-data";
 
     @Rule
@@ -79,7 +78,7 @@ public class RollingFileDataAppenderTest {
     }
 
     @Test
-    public void whenDataAppendMultipleTimesWithCloseInBetwenContentShouldBeAppended() throws Exception {
+    public void whenDataAppendMultipleTimesWithCloseInBetweenContentShouldBeAppended() throws Exception {
         rollingFileDataAppender.openFile();
         saveToAppender();
         rollingFileDataAppender.closeFile();

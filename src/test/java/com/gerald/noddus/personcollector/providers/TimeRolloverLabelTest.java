@@ -1,7 +1,6 @@
 package com.gerald.noddus.personcollector.providers;
 
 import static org.hamcrest.Matchers.equalTo;
-import static org.junit.Assert.*;
 
 import java.time.LocalDateTime;
 import org.junit.Rule;
@@ -10,7 +9,7 @@ import org.junit.rules.ErrorCollector;
 
 public class TimeRolloverLabelTest {
     @Rule
-    public ErrorCollector collector = new ErrorCollector();
+    public final ErrorCollector collector = new ErrorCollector();
 
     @Test
     public void givenTimeStampShouldGenerateLabelProperly(){

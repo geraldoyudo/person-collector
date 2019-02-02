@@ -17,7 +17,7 @@ public class ErrorDetailsTest {
             + "\"description\":\"invalid person entry\",\"causes\":[\"name is invalid\"],"
             + "\"timestamp\":\"2019-01-31T14:23:46.085\"}";
 
-    private ObjectMapper objectMapper = new ObjectMapper().registerModule(new ParameterNamesModule())
+    private final ObjectMapper objectMapper = new ObjectMapper().registerModule(new ParameterNamesModule())
             .registerModule(new Jdk8Module()).registerModule(new JavaTimeModule());
 
     @Test

@@ -22,6 +22,12 @@ cd person-collector
 ./build.sh
 ~~~
 
+## Testing the project
+
+~~~
+mvn test
+~~~
+
 ## Running the person-collector service
 
 ~~~

@@ -136,4 +136,12 @@ public class RollingFileDataAppenderTest {
         rollingFileDataAppender.openFile();
         rollingFileDataAppender.openFile();
     }
+
+    @Test
+    public void givenFileWithDirectoryNotCreatedWhenOpenFileShouldCreateCorrespondingDirectories() throws Exception{
+        rollingFileDataAppender.setFolderPath(testFolder.getAbsolutePath() + "/dir1/dir2/dir3");
+        rollingFileDataAppender.openFile();
+        assertThat(rollingFileDataAppender.isOpen(), is(true));
+        rollingFileDataAppender.closeFile();
+    }
 }

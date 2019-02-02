@@ -1,7 +1,7 @@
 version: '2'
 services:
   person-collector-service:
-    image: person-collector:latest
+    image: geraldoyudo/person-collector:1.0.0
     environment:
       - person.service.file=${PERSON_COLLECTOR_FILE_NAME}
       - person.service.rollover.cron=${PERSON_COLLECTOR_ROLLOVER_CRON}

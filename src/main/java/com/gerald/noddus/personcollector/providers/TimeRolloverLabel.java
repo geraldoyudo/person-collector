@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class TimeRolloverLabel implements RolloverLabel {
-    private LocalDateTime localDateTime;
+    private final LocalDateTime localDateTime;
 
     public TimeRolloverLabel() {
         this(LocalDateTime.now());

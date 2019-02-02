@@ -18,14 +18,19 @@ import org.junit.rules.TemporaryFolder;
 public class PersonServiceImplTest {
 
     public static final String SAMPLE_FILE = "sample.txt";
-    @Rule
-    public TemporaryFolder temporaryFolder = new TemporaryFolder();
-    @Rule
-    public ErrorCollector collector = new ErrorCollector();
+    public static final String PERSON_ONE_NAME = "Gerald";
+    public static final String PERSON_TWO_NAME = "Layo";
+    public static final long PERSON_ONE_ID = 1L;
+    public static final long PERSON_TWO_ID = 2L;
 
-    private ProtobufPersonSerializer serializer = new ProtobufPersonSerializer();
-    private RollingFileDataAppender appender = new RollingFileDataAppender();
-    private PersonServiceImpl personService = new PersonServiceImpl();
+    @Rule
+    public final TemporaryFolder temporaryFolder = new TemporaryFolder();
+    @Rule
+    public final ErrorCollector collector = new ErrorCollector();
+
+    private final ProtobufPersonSerializer serializer = new ProtobufPersonSerializer();
+    private final RollingFileDataAppender appender = new RollingFileDataAppender();
+    private final PersonServiceImpl personService = new PersonServiceImpl();
     private File testFolder;
     private File testFile;
 
@@ -42,8 +47,8 @@ public class PersonServiceImplTest {
     @Test
     public void givenPersonWhenSavePersonShouldPersistPersonToFile() throws Exception {
         appender.openFile();
-        personService.savePerson(createPerson(1L, "Gerald"));
-        personService.savePerson(createPerson(2L, "Layo"));
+        personService.savePerson(createPerson(PERSON_ONE_ID, PERSON_ONE_NAME));
+        personService.savePerson(createPerson(PERSON_TWO_ID, PERSON_TWO_NAME));
         appender.closeFile();
         checkThatDataIsSaved();
     }
@@ -59,10 +64,10 @@ public class PersonServiceImplTest {
         try(FileInputStream inputStream = new FileInputStream(testFile)){
             PersonEntity.JSONmsg personOne = PersonEntity.JSONmsg.parseDelimitedFrom(inputStream);
             PersonEntity.JSONmsg personTwo = PersonEntity.JSONmsg.parseDelimitedFrom(inputStream);
-            collector.checkThat(personOne.getId(), equalTo(1L));
-            collector.checkThat(personOne.getName(), equalTo("Gerald"));
-            collector.checkThat(personTwo.getId(), equalTo(2L));
-            collector.checkThat(personTwo.getName(), equalTo("Layo"));
+            collector.checkThat(personOne.getId(), equalTo(PERSON_ONE_ID));
+            collector.checkThat(personOne.getName(), equalTo(PERSON_ONE_NAME));
+            collector.checkThat(personTwo.getId(), equalTo(PERSON_TWO_ID));
+            collector.checkThat(personTwo.getName(), equalTo(PERSON_TWO_NAME));
         }
     }
 }

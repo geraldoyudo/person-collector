@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.gerald.noddus</groupId>
 	<artifactId>person-collector</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0.0</version>
 	<name>person-collector</name>
 	<description>A http service that collects person data</description>
 
@@ -92,12 +92,15 @@
 				<artifactId>docker-maven-plugin</artifactId>
 				<version>1.0.0</version>
 				<configuration>
-					<imageName>${project.name}</imageName>
+					<imageName>geraldoyudo/${project.name}</imageName>
 					<baseImage>openjdk:8u131-jdk-alpine</baseImage>
 					<entryPoint>["java", "-jar", "/${project.build.finalName}.jar"]</entryPoint>
 					<exposes>
 						<expose>8080</expose>
 					</exposes>
+					<imageTags>
+						<imageTag>${project.version}</imageTag>
+					</imageTags>
 					<!-- copy the service's jar file from target into the root directory of the image -->
 					<resources>
 						<resource>

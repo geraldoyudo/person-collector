@@ -19,6 +19,7 @@ public class RollingFileDataAppender implements DataAppender, RolloverCapable {
     private String folderPath;
     @Value("${person.service.file}")
     private String fileName;
+
     private OutputStream outputStream;
 
     public void setFolderPath(String folderPath) {

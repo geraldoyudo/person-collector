@@ -8,7 +8,7 @@ public final class PopulatorUtils {
         throw new UnsupportedOperationException("cannot instantiate utility class");
     }
 
-    public  static  Person createPerson(long id, String name){
+    public static Person createPerson(long id, String name){
         Person p = new Person();
         p.setName(name);
         p.setId(id);

@@ -4,7 +4,6 @@ import com.gerald.noddus.personcollector.models.ErrorDetails;
 import java.util.stream.Collectors;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -18,7 +17,10 @@ public class GeneralExceptionHandler {
     public ErrorDetails handleMethodArgumentNotValidException(MethodArgumentNotValidException ex){
         BindingResult bindingResult = ex.getBindingResult();
         return new ErrorDetails("Bad Request", String.format("Invalid %s object", bindingResult.getObjectName()),
-                bindingResult.getAllErrors().stream().map(objectError -> objectError.getDefaultMessage()).collect(Collectors.toList()));
+                bindingResult.getAllErrors()
+                        .stream()
+                        .map(objectError -> objectError.getDefaultMessage())
+                        .collect(Collectors.toList()));
     }
 
     @ExceptionHandler(Exception.class)

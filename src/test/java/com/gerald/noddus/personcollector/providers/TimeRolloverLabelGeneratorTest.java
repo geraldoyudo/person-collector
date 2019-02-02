@@ -7,7 +7,7 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 public class TimeRolloverLabelGeneratorTest {
-    private TimeRolloverLabelGenerator rolloverLabelGenerator = new TimeRolloverLabelGenerator();
+    private final TimeRolloverLabelGenerator rolloverLabelGenerator = new TimeRolloverLabelGenerator();
 
     @Test
     public void generateRolloverLabel() {

@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.gerald.noddus</groupId>
 	<artifactId>person-collector</artifactId>
-	<version>1.0.0</version>
+	<version>1.0.1</version>
 	<name>person-collector</name>
 	<description>A http service that collects person data</description>
 

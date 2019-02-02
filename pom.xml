@@ -94,7 +94,7 @@
 				<configuration>
 					<imageName>geraldoyudo/${project.name}</imageName>
 					<baseImage>openjdk:8u131-jdk-alpine</baseImage>
-					<entryPoint>["java", "-jar", "/${project.build.finalName}.jar"]</entryPoint>
+					<entryPoint>["java", "-jar", "./${project.build.finalName}.jar"]</entryPoint>
 					<exposes>
 						<expose>8080</expose>
 					</exposes>

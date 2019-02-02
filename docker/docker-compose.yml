@@ -2,8 +2,9 @@ version: '2'
 services:
   person-collector-service:
     image: person-collector:latest
-    env_file:
-      - ./application.properties
+    environment:
+      - person.service.file=${PERSON_COLLECTOR_FILE_NAME}
+      - person.service.rollover.cron=${PERSON_COLLECTOR_ROLLOVER_CRON}
     ports:
       - "8080:8080"
     volumes:

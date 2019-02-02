@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -31,11 +32,17 @@ public class RollingFileDataAppender implements DataAppender, RolloverCapable {
     }
 
     @PostConstruct
-    public void openFile() throws FileNotFoundException {
+    public void openFile() throws IOException {
         if (isOpen()) {
             throw new IllegalStateException("file is already open");
         }
+        initializeAndGetFile();
         this.outputStream = new FileOutputStream(getAbsoluteFilePath(), true);
+    }
+
+    private void initializeAndGetFile() throws IOException {
+        File file = new File(getAbsoluteFilePath());
+        FileUtils.forceMkdirParent(file);
     }
 
     private String getAbsoluteFilePath() {

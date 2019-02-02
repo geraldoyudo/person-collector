@@ -22,7 +22,16 @@ cd person-collector
 ./build.sh
 ~~~
 
+## Testing the project
+
+~~~
+mvn test
+~~~
+
 ## Running the person-collector service
+
+Without building the project, you can run the ./start.sh script. This 
+will pull the required docker image from docker hub.
 
 ~~~
 ./start.sh

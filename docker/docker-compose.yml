@@ -1,0 +1,10 @@
+version: '2'
+services:
+  person-collector-service:
+    image: person-collector:latest
+    env_file:
+      - ./application.properties
+    ports:
+      - "8080:8080"
+    volumes:
+      - "${PERSON_COLLECTOR_HOME}:/root/output"
